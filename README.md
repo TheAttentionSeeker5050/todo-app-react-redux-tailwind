@@ -1,3 +1,3 @@
-# React boilerplate
+# Todo App React boilerplate
 
-A react app boilerplate for router, redux and tailwind applications. It also allows jest testing.
+A react todo app using router, redux and tailwind applications. It also allows jest testing.
