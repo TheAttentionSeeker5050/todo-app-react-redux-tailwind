@@ -10,8 +10,8 @@ import "@fortawesome/fontawesome-free/js/solid"
 
 
 export default function HomePage() {
-    const count = useSelector((state) => state.test.value)
-    const dispatch = useDispatch()
+    // const count = useSelector((state) => state.test.value)
+    // const dispatch = useDispatch()
     
     return (
         <main className="w-screen flex flex-col gap-5 flex-nowrap text-center content-evenly my-24">
