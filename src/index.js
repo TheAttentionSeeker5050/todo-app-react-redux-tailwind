@@ -11,14 +11,16 @@ import router from './routes/main.routes';
 
 // redux imports
 import { Provider } from 'react-redux'
-import store from './store'
+import store, { persistor } from './store'
+import { PersistGate } from 'redux-persist/integration/react'; // a redux persist import
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-
-      <RouterProvider router={router}/>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router}/>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
