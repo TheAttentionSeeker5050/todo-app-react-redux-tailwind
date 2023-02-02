@@ -8,7 +8,7 @@ import ErrorPage from "../components/ErrorPage";
 import HomePage from "../components/Home";
 import LoginPage from "../components/auth/Login";
 import RegisterPage from "../components/auth/Register";
-
+import ListTodos from "../components/todos/ListTodos";
 
 const router = createBrowserRouter([
     {
@@ -28,7 +28,10 @@ const router = createBrowserRouter([
           path: "/register",
           element:<RegisterPage/>
         },
-
+        {
+          path: "/todos",
+          element:<ListTodos/>
+        },
       ]
     },
   ]);

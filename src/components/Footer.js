@@ -3,7 +3,7 @@ export default function Footer() {
         
         <footer className="w-screen">
             <p className="text-center">
-                Site made by 
+                Site was made by 
                 <a href="https://github.com/TheAttentionSeeker5050" className="text-sky-800 font-semibold"> Nicolas Castellano</a>
             </p>
         </footer>
