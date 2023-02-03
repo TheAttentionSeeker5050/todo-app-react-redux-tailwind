@@ -13,6 +13,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 // import { faCheck } from "@fortawesome/free-solid-svg-icons"
 import "@fortawesome/fontawesome-free/js/solid"
 
+
+
+
+
 export default function NewTodoComponent() {
     
     // create new state variable
@@ -25,13 +29,26 @@ export default function NewTodoComponent() {
         setNewTodoText(event.target.value)
     }
 
-    
+    const handleCreateNewTask = (event) => {
+        dispatch(addTodo(newTodoText))
+        
+        // delete the searcch bar and change the focus
+        setNewTodoText("")
+        document.getElementById("search-bar").focus()
+    }
+
+    const handlePressEnter = (event) => {
+        // we also want wo execute the new task event on pressing enter
+        if (event.code === "Enter") {
+            handleCreateNewTask(event)
+        }
+    }
 
     return (
         <div className="rounded-2xl border-2 w-60 mx-auto border-slate-300 active:border-sky-700  focus-within:border-sky-700 ">
-            <input type="text" placeholder="New Todo" className="p-2 focus-within:border-0 " value={newTodoText} 
-            onChange={(event) => {handleNewTodoChange(event)}}/>
-            <button  onClick={() => dispatch(addTodo(newTodoText))}><FontAwesomeIcon icon="fa-solid fa-circle-plus" size="xl" color="#0369A1" /></button>
+            <input id="search-bar" type="text" placeholder="New Todo" className="p-2 focus-within:border-0 " value={newTodoText} 
+            onChange={(event) => {handleNewTodoChange(event)}} onKeyDown={(event) => handlePressEnter(event)}/>
+            <button  onClick={(event) => handleCreateNewTask(event)}><FontAwesomeIcon icon="fa-solid fa-circle-plus" size="xl" color="#0369A1" /></button>
         </div>
     )
 }

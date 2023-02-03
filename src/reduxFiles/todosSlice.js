@@ -18,8 +18,6 @@ export const todosSlice = createSlice({
 
             state.value = newArray
         },
-        editTodo: (state, action) => {},
-        completeTodo: (state, action) => {},
         
     }
 })

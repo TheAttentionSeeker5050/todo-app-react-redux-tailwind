@@ -3,6 +3,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 // import reducers
 import testReducer from "./reduxFiles/testSlice"
 import todosReducer from "./reduxFiles/todosSlice"
+import completedTodosReducer from './reduxFiles/completedTodosSlice'
 
 // redux persist
 import storage from 'redux-persist/lib/storage'
@@ -21,6 +22,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   test: testReducer,
   todos: todosReducer,
+  completedTodos: completedTodosReducer,
 })
 
 // add these reducers to a persisted reducers

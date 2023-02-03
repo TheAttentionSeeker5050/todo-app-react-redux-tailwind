@@ -11,9 +11,11 @@ import "@fortawesome/fontawesome-free/js/solid"
 // import subComponents
 import TodoContainer from "./TodoContainer"
 import NewTodoComponent from "./NewTodo"
+import CompletedTasksContainer from "./completedTasksContainer"
 
 export default function ListTodos() {
     const todos = useSelector((state) => state.todos.value)
+    const completedTodos = useSelector((state) => state.completedTodos.value)
     const dispatch = useDispatch()
 
 
@@ -38,6 +40,13 @@ export default function ListTodos() {
             <h2 className="text-xl text-left mx-6">
                 Done <FontAwesomeIcon icon="fa-solid fa-check " size="2xl" color="#0369A1"/>
             </h2>
+
+            <section className="mx-auto  w-4/5">
+                {completedTodos.map((todo) => {
+                    return <CompletedTasksContainer completedTodo={todo}/>
+                })}
+                
+            </section>
             
         </main>
     )

@@ -22,8 +22,9 @@ export default function HomePage() {
 
             
             <p>To Do gives you focus, from work to play.</p>
-            <button className="bg-sky-700 w-36 mx-auto p-3 text-white font-semibold rounded-xl my-12"><Link to={"/register"}>Get started</Link></button>
+            <button className="bg-sky-700 w-36 mx-auto p-3 text-white font-semibold rounded-xl my-12"><Link to={"/todos"}>Get started</Link></button>
             <p className="text-slate-800 font-semibold text-lg"><Link to={"#"}>Learn more</Link></p>
         </main>
     )
 }
+
