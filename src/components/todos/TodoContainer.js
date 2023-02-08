@@ -20,7 +20,7 @@ export default function TodoContainer(props) {
                 <FontAwesomeIcon icon="fa-regular fa-circle" size="lg" color="#0369A1" onClick={() => {
                     dispatch(addCompletedTodo(props.todo))
                     dispatch(deleteTodo(props.todo))
-                }}/>
+                }} className="hover:scale-110"/>
             </div>
             
             <div >
@@ -28,7 +28,7 @@ export default function TodoContainer(props) {
             </div>
 
             <div className="flex flex-row gap-4 my-auto">
-                <FontAwesomeIcon icon="fa-regular fa-circle-xmark" size="lg" color="red" onClick={() => dispatch(deleteTodo(props.todo))}/>
+                <FontAwesomeIcon icon="fa-regular fa-circle-xmark" size="lg" color="red" onClick={() => dispatch(deleteTodo(props.todo))} className="hover:scale-110"/>
                 {/* <FontAwesomeIcon icon="fa-regular fa-pen-to-square" size="lg" color="#0369A1"/> */}
             </div>
         </div>

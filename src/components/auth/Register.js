@@ -9,7 +9,7 @@ export default function RegisterPage() {
             </h1>
 
             <section className="">
-                <form className="flex flex-col gap-4 justify-between ">
+                <form className="flex flex-col gap-4 justify-between " >
                     <div className="flex flex-col w-60 mx-auto justify-between">
                         <label className="text-left">First Name:</label>
                         <input type="text" name="firstName" className="border-2 border-sky-700 rounded-lg"></input>

@@ -39,7 +39,7 @@ export default function NewTodoComponent() {
 
     const handlePressEnter = (event) => {
         // we also want wo execute the new task event on pressing enter
-        if (event.code === "Enter") {
+        if (event.code === "Enter" || event.code === "NumpadEnter") {
             handleCreateNewTask(event)
         }
     }
