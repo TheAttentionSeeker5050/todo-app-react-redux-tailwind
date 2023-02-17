@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export default function Header() {
 
-    if (window.localStorage.getItem("isLoggedIn")) {
+    if (window.localStorage.getItem("isLoggedIn")=='true') {
         return (
             <nav className="w-screen">
                 <ul className="flex flex-row gap-5 justify-end px-8 py-4 bg-sky-700 text-white mobile:justify-center mobile:gap-8">
@@ -13,7 +13,7 @@ export default function Header() {
             </nav>
         )
 
-    } else {
+    } else  {
         // if user is not logged in, display this header
         return (
             <nav className="w-screen">

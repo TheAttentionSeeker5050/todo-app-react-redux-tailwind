@@ -13,10 +13,25 @@ import TodoContainer from "./TodoContainer"
 import NewTodoComponent from "./NewTodo"
 import CompletedTasksContainer from "./completedTasksContainer"
 
+// import hooks
+import { useEffect } from "react"
+
+// import api calls
+import { fetchTodos } from "../../api/todos/todos.api"
+
+
 export default function ListTodos() {
+    
+    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        fetchTodos(dispatch)
+    })
+    
+
     const todos = useSelector((state) => state.todos.value)
     const completedTodos = useSelector((state) => state.completedTodos.value)
-    const dispatch = useDispatch()
+
 
 
 
@@ -31,7 +46,7 @@ export default function ListTodos() {
             <NewTodoComponent></NewTodoComponent>
 
             <section className="mx-auto  w-4/5">
-                {todos.map((todo) => {
+                { todos && todos.map((todo) => {
                     return <TodoContainer todo={todo}/>
                 })}
                 

@@ -13,6 +13,9 @@ export default function LoginPage() {
 
         let response = loginAPIRequest(email, password);
 
+        // in case of error
+        
+
         response.
             then(data => {
                 window.localStorage.setItem("webToken", data.token);
@@ -24,7 +27,7 @@ export default function LoginPage() {
                 window.localStorage.removeItem("webToken");
                 window.localStorage.setItem("isLoggedIn", false);
                 console.log("request-fail");
-
+                
             })
             
     }
@@ -40,7 +43,7 @@ export default function LoginPage() {
     }
     // console.log(window.localStorage.getItem("isLoggedIn"))
     // check if user is logged in to redirect to todos
-    if (window.localStorage.getItem("isLoggedIn")) {
+    if (window.localStorage.getItem("isLoggedIn")=='true') {
         window.location.href = "/todos";
 
     } else {

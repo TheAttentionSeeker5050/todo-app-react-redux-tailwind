@@ -7,8 +7,11 @@ export const todosSlice = createSlice({
     },
     reducers: {
         addTodo: (state, action) => {
-            // console.log(action.payload)
-            state.value.push(action.payload)
+            try {
+                state.value.push(action.payload)
+            } catch {
+                state.value = [action.payload]
+            }
         },
         deleteTodo: (state, action) => {
             // to delete the element we will filter the values of the arrays by not being the payload string
@@ -18,10 +21,13 @@ export const todosSlice = createSlice({
 
             state.value = newArray
         },
+        replaceTodos: (state, action) => {
+            state.value = action.payload
+        }
         
     }
 })
 
-export const { addTodo, deleteTodo } = todosSlice.actions
+export const { addTodo, deleteTodo, replaceTodos } = todosSlice.actions
 
 export default todosSlice.reducer

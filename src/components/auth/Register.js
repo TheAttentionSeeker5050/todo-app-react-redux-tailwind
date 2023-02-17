@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function RegisterPage() {
 
-    if (window.localStorage.getItem("isLoggedIn")) {
+    if (window.localStorage.getItem("isLoggedIn")=='true') {
         window.location.href = "/todos";
 
     } else {
