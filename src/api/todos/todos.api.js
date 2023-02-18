@@ -3,6 +3,7 @@ import { API_BASE_URL } from "../../constants/API.Constants"
 // import reducers
 import { replaceTodos } from "../../reduxFiles/todosSlice"
 import { useDispatch } from "react-redux"
+import { json } from "react-router-dom"
 
 // export const fetchTodos = (dispatch) => {
 //     // this attempts to get todos from the server
@@ -30,9 +31,9 @@ import { useDispatch } from "react-redux"
 //     )
 // }
 
-const getTodosData = async () => {
+const getTodosDataRequest = async () => {
     const response = await fetch(API_BASE_URL+"/todos", {
-        method: "get",
+        method: "GET",
         headers: {
             "Authorization": localStorage.getItem("webToken")
         }
@@ -41,9 +42,22 @@ const getTodosData = async () => {
     return response.json()
 }
 
+export const postTodosDataRequest = async (todos) => {
+    const response  = await fetch(API_BASE_URL+"/todos", {
+        method: "POST",
+        headers: {
+            "Authorization": localStorage.getItem("webToken")
+        },
+        body: JSON.stringify({
+            todos: todos
+        })
+    })
+    return response.json()
+}
+
 export const fetchTodos = (dispatch) => {
     
-    const response = getTodosData()
+    const response = getTodosDataRequest()
     response.then(data => {
         dispatch(replaceTodos(data.todos))
     })

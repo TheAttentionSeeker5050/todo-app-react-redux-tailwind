@@ -12,12 +12,13 @@ import { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 // import { faCheck } from "@fortawesome/free-solid-svg-icons"
 import "@fortawesome/fontawesome-free/js/solid"
+import { postTodosDataRequest } from "../../api/todos/todos.api"
 
 
 
 
 
-export default function NewTodoComponent() {
+export default function NewTodoComponent(props) {
     
     // create new state variable
     const [newTodoText, setNewTodoText] = useState("") 
@@ -29,9 +30,11 @@ export default function NewTodoComponent() {
         setNewTodoText(event.target.value)
     }
 
-    const handleCreateNewTask = (event) => {
+    const handleCreateNewTask = async (event) => {
         dispatch(addTodo(newTodoText))
         
+        const response = await postTodosDataRequest(props.todos)
+
         // delete the searcch bar and change the focus
         setNewTodoText("")
         document.getElementById("search-bar").focus()

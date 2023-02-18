@@ -43,7 +43,7 @@ export default function ListTodos() {
                 Todos 
             </h1>
 
-            <NewTodoComponent></NewTodoComponent>
+            <NewTodoComponent todos={todos}></NewTodoComponent>
 
             <section className="mx-auto  w-4/5">
                 { todos && todos.map((todo) => {

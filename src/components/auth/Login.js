@@ -9,9 +9,9 @@ export default function LoginPage() {
     const [ password, setPassword ] = useState("");
 
     // handlesubmit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
-        let response = loginAPIRequest(email, password);
+        const response = await loginAPIRequest(email, password);
 
         // in case of error
         
@@ -22,7 +22,6 @@ export default function LoginPage() {
                 window.localStorage.setItem("isLoggedIn", true);
                 console.log("request-success");
             })
-
             .catch(error => {
                 window.localStorage.removeItem("webToken");
                 window.localStorage.setItem("isLoggedIn", false);
