@@ -1,12 +1,54 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from "axios";
+
+import { API_BASE_URL } from '../constants/API.Constants';
+
+const initialState = {
+    value: [],
+    status: "idle", // "idle" | "loading" | "succeeded" | "failed"
+    error: null
+}
+
+
+// async thunk for fetching todos with server
+export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
+    try {
+        const response = await axios.get(API_BASE_URL+"/todos", {
+            headers: {
+                Authorization: window.localStorage.getItem("webToken")
+            }
+        });
+        return [...response.data];
+    } catch (err) {
+        return err.message;
+    }
+})
+
+// renew todos on server
+export const updateTodos = createAsyncThunk("todos/updateTodos", async (todos) => {
+    try {
+        const response = await axios.post(API_BASE_URL+"/todos", {
+            todos: todos
+        }, {
+            headers:{
+                Authorization: window.localStorage.getItem("webToken")
+            }
+        });
+        return response.data;
+    } catch (err) {
+        return err.message;
+    }
+})
+
+
 
 export const todosSlice = createSlice({
     name: "todos",
     initialState: {
-        value: ["Walk the walk", "talk the talk"]
+        initialState
     },
     reducers: {
-        addTodo: (state, action) => {
+        addTodo:  (state, action) => {
             try {
                 state.value.push(action.payload)
             } catch {
@@ -25,9 +67,41 @@ export const todosSlice = createSlice({
             state.value = action.payload
         }
         
+    }, extraReducers(builder) {
+        // builder param object that let us define additional case reducers 
+        // that run in response to actions that run outside this slice
+        builder
+            .addCase(fetchTodos.pending, (state, action) => {
+                state.status = "loading";
+            })
+            .addCase(fetchTodos.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                // adding the todos from the server to loaded todos var
+                const loadedTodos = action.payload
+                console.log(loadedTodos)
+
+                // replacing the current state value with the  fetch todos from server
+                state.value = loadedTodos
+            })
+            .addCase(fetchTodos.rejected, (state, action) => {
+                state.status = "failed"
+                state.error = action.error.message
+            })
+            .addCase(updateTodos.fulfilled, (state,action) => {
+                // there is no preparation needed here. Will leave it blank for now. 
+                // In future iterations I may add extra data to the model.
+            })
+
     }
 })
 
+// export selectors
+export const selectAllCompletedTodos = (state) => state.todos.value;
+export const getCompletedTodosStatus = (state) => state.todos.status;
+export const getCompletedTodosError = (state) => state.todos.error;
+
+// export reducer actions
 export const { addTodo, deleteTodo, replaceTodos } = todosSlice.actions
 
+// export store reducer
 export default todosSlice.reducer

@@ -16,8 +16,6 @@ import CompletedTasksContainer from "./completedTasksContainer"
 // import hooks
 import { useEffect } from "react"
 
-// import api calls
-import { fetchTodos } from "../../api/todos/todos.api"
 
 
 export default function ListTodos() {
@@ -25,7 +23,7 @@ export default function ListTodos() {
     const dispatch = useDispatch()
     
     useEffect(() => {
-        fetchTodos(dispatch)
+        
     })
     
 
