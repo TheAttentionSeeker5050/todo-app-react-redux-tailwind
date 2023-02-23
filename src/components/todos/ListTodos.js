@@ -53,7 +53,8 @@ export default function ListTodos() {
             <NewTodoComponent />
 
             <section className="mx-auto  w-4/5">
-                { (todosStatus === "succeeded") && todos.map((todo) => {
+                {<>{todosStatus}</>}
+                { todos && todos.map((todo) => {
                     return <TodoContainer todo={todo}/>
                 })}
 
