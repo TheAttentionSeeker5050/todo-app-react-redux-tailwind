@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-// import { increment, decrement } from "../reduxFiles/testSlice"
 
 
 // import fontawesome
@@ -13,6 +12,9 @@ import TodoContainer from "./TodoContainer"
 import NewTodoComponent from "./NewTodo"
 import CompletedTasksContainer from "./completedTasksContainer"
 
+// import from redux store slices
+import { selectAllTodos, getTodosError, getTodosStatus, fetchTodos } from "../../reduxFiles/todosSlice"
+
 // import hooks
 import { useEffect } from "react"
 
@@ -20,14 +22,21 @@ import { useEffect } from "react"
 
 export default function ListTodos() {
     
-    const dispatch = useDispatch()
+    // use selectors
+    const todos = useSelector(selectAllTodos);
+    const todosError = useSelector(getTodosError);
+    const todosStatus = useSelector(getTodosStatus);
+
+    const dispatch = useDispatch();
     
     useEffect(() => {
-        
-    })
+        if (todosStatus === "idle") {
+            dispatch(fetchTodos)
+        }
+    }, [todosStatus, dispatch])
     
 
-    const todos = useSelector((state) => state.todos.value)
+    // const todos = useSelector((state) => state.todos.value)
     const completedTodos = useSelector((state) => state.completedTodos.value)
 
 
@@ -41,12 +50,16 @@ export default function ListTodos() {
                 Todos 
             </h1>
 
-            <NewTodoComponent todos={todos}></NewTodoComponent>
+            <NewTodoComponent />
 
             <section className="mx-auto  w-4/5">
-                { todos && todos.map((todo) => {
+                { (todosStatus === "succeeded") && todos.map((todo) => {
                     return <TodoContainer todo={todo}/>
                 })}
+
+                {(todosStatus === "loading") && <p>Loading...</p>}
+
+                {(todosStatus === "failed" && <div><p>Sorry... There was an error with loading your todos.</p><br/> <p>{todosError}</p></div>)}
                 
             </section>
 

@@ -93,9 +93,9 @@ export const completedTodoSlice = createSlice({
 
 
 // export selectors
-export const selectAllTodos = (state) => state.todos.value;
-export const getTodosStatus = (state) => state.todos.status;
-export const getTodosError = (state) => state.todos.error;
+export const selectAllCompletedTodos = (state) => state.todos.value;
+export const getCompletedTodosStatus = (state) => state.todos.status;
+export const getCompletedTodosError = (state) => state.todos.error;
 
 
 // export reducer actions

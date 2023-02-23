@@ -17,7 +17,7 @@ import "@fortawesome/fontawesome-free/js/solid"
 
 
 
-export default function NewTodoComponent(props) {
+export default function NewTodoComponent() {
     
     // create new state variable
     const [newTodoText, setNewTodoText] = useState("") 
