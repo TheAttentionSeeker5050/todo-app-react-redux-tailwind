@@ -26,11 +26,13 @@ export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
 
 // renew todos on server
 export const updateTodos = createAsyncThunk("todos/updateTodos", async (todos) => {
+    
     try {
+        console.log(todos)
         const response = await axios.post(API_BASE_URL+"/todos", {
             todos: todos
         }, {
-            headers:{
+            headers: {
                 Authorization: window.localStorage.getItem("webToken")
             }
         });

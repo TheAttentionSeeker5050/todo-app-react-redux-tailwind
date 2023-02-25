@@ -34,13 +34,19 @@ export default function NewTodoComponent() {
 
     let allTodos = useSelector(selectAllTodos)
 
+
     const handleCreateNewTask = async (event) => {
+
+
+        
+        
         try {
             dispatch(addTodo(newTodoText));
+            // console.log(allTodos)
             setAddRequestStatus("pending");
-            dispatch(updateTodos(allTodos)).unwrap();
+            dispatch(updateTodos(allTodos.concat(newTodoText))).unwrap();
         } catch (error) {
-
+            console.log(error.message)
         } finally {
             navigate("/todos");
         }
@@ -48,8 +54,8 @@ export default function NewTodoComponent() {
         // dispatch(addTodo(newTodoText))
         
         // delete the searcch bar and change the focus
-        // setNewTodoText("")
-        // document.getElementById("search-bar").focus()
+        setNewTodoText("")
+        document.getElementById("search-bar").focus()
     }
 
     const handlePressEnter = (event) => {
