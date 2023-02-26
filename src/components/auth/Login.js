@@ -16,8 +16,8 @@ export default function LoginPage() {
         // in case of error
         
 
-        response.
-            then(data => {
+        await response
+            .then(data => {
                 window.localStorage.setItem("webToken", data.token);
                 window.localStorage.setItem("isLoggedIn", true);
                 console.log("request-success");
@@ -28,6 +28,8 @@ export default function LoginPage() {
                 console.log("request-fail");
                 
             })
+
+        
             
     }
 

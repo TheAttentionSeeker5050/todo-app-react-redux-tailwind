@@ -13,7 +13,7 @@ import NewTodoComponent from "./NewTodo"
 import CompletedTasksContainer from "./completedTasksContainer"
 
 // import from redux store slices
-import { selectAllTodos, getTodosError, getTodosStatus, fetchTodos } from "../../reduxFiles/todosSlice"
+import { selectAllTodos, getTodosError, getTodosStatus, fetchTodos, replaceTodos } from "../../reduxFiles/todosSlice"
 
 // import hooks
 import { useEffect } from "react"
@@ -29,19 +29,26 @@ export default function ListTodos() {
 
     const dispatch = useDispatch();
     
+
+
     useEffect(() => {
         if (todosStatus === "idle") {
-            dispatch(fetchTodos)
-        }
+            // console.log("status:",todosStatus)
+
+            console.log("idle")
+            dispatch(fetchTodos())
+        } 
     }, [todosStatus, dispatch])
+
+
     
 
     // const todos = useSelector((state) => state.todos.value)
     const completedTodos = useSelector((state) => state.completedTodos.value)
 
-
-
-
+    console.log("status:",todosStatus)
+    console.log("error:",todosError)
+    console.log("todos:",todos)
     
     return (
         <main className="w-screen flex flex-col gap-5 flex-nowrap text-center content-between my-4">
@@ -50,13 +57,15 @@ export default function ListTodos() {
                 Todos 
             </h1>
 
+            
             <NewTodoComponent />
 
             <section className="mx-auto  w-4/5">
-                {<>{todosStatus}</>}
-                { todos && todos.map((todo) => {
+                { todosStatus === "succeeded" && todos.map((todo) => {
                     return <TodoContainer todo={todo}/>
                 })}
+
+                
 
                 {(todosStatus === "loading") && <p>Loading...</p>}
 
@@ -68,12 +77,12 @@ export default function ListTodos() {
                 Done <FontAwesomeIcon icon="fa-solid fa-check " size="2xl" color="#0369A1"/>
             </h2>
 
-            <section className="mx-auto  w-4/5">
+            {/* <section className="mx-auto  w-4/5">
                 {completedTodos.map((todo) => {
                     return <CompletedTasksContainer completedTodo={todo}/>
                 })}
                 
-            </section>
+            </section> */}
             
         </main>
     )

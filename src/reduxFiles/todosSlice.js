@@ -12,14 +12,19 @@ const initialState = {
 
 // async thunk for fetching todos with server
 export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
+    
     try {
-        const response = await axios.get(API_BASE_URL+"/todos", {
+        const response = await axios.get(API_BASE_URL+"/todos", {}, {
             headers: {
                 Authorization: window.localStorage.getItem("webToken")
             }
         });
-        return [...response.data];
+
+        // console.log(response.data.todos)
+        
+        return response.data.todos
     } catch (err) {
+        console.log("error")
         return err.message;
     }
 })
@@ -28,7 +33,6 @@ export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
 export const updateTodos = createAsyncThunk("todos/updateTodos", async (todos) => {
     
     try {
-        console.log(todos)
         const response = await axios.post(API_BASE_URL+"/todos", {
             todos: todos
         }, {
@@ -46,11 +50,9 @@ export const updateTodos = createAsyncThunk("todos/updateTodos", async (todos) =
 
 export const todosSlice = createSlice({
     name: "todos",
-    initialState: {
-        initialState
-    },
+    initialState,
     reducers: {
-        addTodo:  (state, action) => {
+        addTodo: (state, action) => {
             try {
                 state.value.push(action.payload)
             } catch {
@@ -69,7 +71,8 @@ export const todosSlice = createSlice({
             state.value = action.payload
         }
         
-    }, extraReducers(builder) {
+    }, 
+    extraReducers(builder) {
         // builder param object that let us define additional case reducers 
         // that run in response to actions that run outside this slice
         builder
@@ -79,11 +82,12 @@ export const todosSlice = createSlice({
             .addCase(fetchTodos.fulfilled, (state, action) => {
                 state.status = "succeeded";
                 // adding the todos from the server to loaded todos var
-                const loadedTodos = action.payload
-                console.log(loadedTodos)
+                // const loadedTodos = action.payload
+                
 
                 // replacing the current state value with the  fetch todos from server
-                state.value = loadedTodos
+                state.value = action.payload
+                // state.value = state.todos.concat(action.payload)
             })
             .addCase(fetchTodos.rejected, (state, action) => {
                 state.status = "failed"
