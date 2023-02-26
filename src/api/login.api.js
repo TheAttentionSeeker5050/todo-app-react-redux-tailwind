@@ -20,6 +20,8 @@ export async function loginAPIRequest(email, password) {
         }
     )
 
+    console.log(response.data)
+
     return response.data
 
     

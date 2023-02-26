@@ -10,26 +10,20 @@ export default function LoginPage() {
     const [ password, setPassword ] = useState("");
 
     // handlesubmit
-    const handleSubmit = (e) => {
-
+    function handleSubmit(e) {
+        e.preventDefault();
         loginAPIRequest(email, password)
             .then(data => {
-                // console.log(data)
                 window.localStorage.setItem("webToken", data.token);
                 window.localStorage.setItem("isLoggedIn", true);
-                console.log("request-success");
                 navigate("/todos")
             })
             .catch(error => {
-                // console.log(error.message)
                 window.localStorage.removeItem("webToken");
                 window.localStorage.setItem("isLoggedIn", false);
-                console.log("request-fail", error);
+                navigate("/login")
             })
-
         
-        
-            
     }
 
     const handleFormInput = (e) => {
@@ -40,7 +34,6 @@ export default function LoginPage() {
         } else if (e.target.name === "password") {
             setPassword(e.target.value);
         }
-        // console.log(email, password)
     }
 
     // console.log(window.localStorage.getItem("isLoggedIn"))
@@ -57,7 +50,9 @@ export default function LoginPage() {
                     Login
                 </h1>
                 <section className="">
-                    <form className="flex flex-col gap-4 justify-between" onSubmit={(e) => handleSubmit(e)}>
+                    <form className="flex flex-col gap-4 justify-between" onSubmit={(e) => {
+                        handleSubmit(e)
+                    }}>
 
                         <div className="flex flex-col w-60 mx-auto justify-between">
                             <label className="text-left">Email:</label>

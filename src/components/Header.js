@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router";
 
 export default function Header() {
+
+    const navigate = useNavigate()
+
+    const onLogoutClick = (e) => {
+        e.preventDefault();
+        window.localStorage.removeItem("webToken");
+        window.localStorage.removeItem("isLoggedIn");
+        navigate("/login");
+    }
 
     if (window.localStorage.getItem("isLoggedIn")=='true') {
         return (
@@ -8,7 +18,11 @@ export default function Header() {
                 <ul className="flex flex-row gap-5 justify-end px-8 py-4 bg-sky-700 text-white mobile:justify-center mobile:gap-8">
                     <li><Link to={"/todos"}>Todos</Link></li>
                     <li><Link to={"/profile"}>Profile</Link></li>
-                    <li><Link to={"/logout"}>Logout</Link></li>
+                    <li onClick={(e) => onLogoutClick(e)}>
+                        <Link to={"#"}>
+                            Logout
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         )
