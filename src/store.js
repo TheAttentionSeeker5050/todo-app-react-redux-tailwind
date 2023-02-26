@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { applyMiddleware, combineReducers, configureStore } from '@reduxjs/toolkit'
 
 // import reducers
 import testReducer from "./reduxFiles/testSlice"
@@ -20,7 +20,7 @@ const persistConfig = {
 
 // combine all the app reducers
 const rootReducer = combineReducers({
-  test: testReducer,
+  // test: testReducer,
   todos: todosReducer,
   completedTodos: completedTodosReducer,
 })
@@ -32,7 +32,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 const store =  configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== "production",
-  middleware: [thunk]
+  // middleware: [thunk]
 })
 
 // export modules

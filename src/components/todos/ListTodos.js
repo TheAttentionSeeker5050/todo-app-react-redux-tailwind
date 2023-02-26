@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-// import { increment, decrement } from "../reduxFiles/testSlice"
 
 
 // import fontawesome
@@ -13,11 +12,66 @@ import TodoContainer from "./TodoContainer"
 import NewTodoComponent from "./NewTodo"
 import CompletedTasksContainer from "./completedTasksContainer"
 
-export default function ListTodos() {
-    const todos = useSelector((state) => state.todos.value)
-    const completedTodos = useSelector((state) => state.completedTodos.value)
-    const dispatch = useDispatch()
+// import from redux store slices
+import { selectAllTodos, getTodosError, getTodosStatus, fetchTodos, replaceTodos } from "../../reduxFiles/todosSlice"
+import { selectAllCompletedTodos, getCompletedTodosError, getCompletedTodosStatus, fetchCompletedTodos, replaceCompletedTodos } from "../../reduxFiles/completedTodosSlice"
 
+// import hooks
+import { useEffect } from "react"
+
+
+
+export default function ListTodos() {
+    
+    // use selectors
+    const todos = useSelector(selectAllTodos);
+    const todosError = useSelector(getTodosError);
+    const todosStatus = useSelector(getTodosStatus);
+
+    const completedTodos = useSelector(selectAllCompletedTodos);
+    const completedTodosError = useSelector(getCompletedTodosError);
+    const completedTodosStatus = useSelector(getCompletedTodosStatus);
+
+    const dispatch = useDispatch();
+    
+
+
+    useEffect(() => {
+        if (todosStatus === "idle") {
+            dispatch(fetchTodos())
+        } 
+    }, [todosStatus, dispatch])
+
+    useEffect(() => {
+        if (completedTodosStatus === "idle") {
+            dispatch(fetchCompletedTodos())
+        } 
+    }, [completedTodosStatus, dispatch])
+
+
+    
+
+
+
+    // populate the todo content
+    let todoContent;
+    if (todosStatus=== "loading") {
+        todoContent = <p>loading...</p>
+    } else if (todosStatus === "succeeded") {
+        todoContent = todos.map((todo) => <TodoContainer todo={todo}/>)
+    } else if (todosStatus === "failed") {
+        todoContent = <div><p>Sorry... There was an error with loading your todos.</p><br/> <p>{todosError}</p></div>
+    }
+
+    // populate the todo content
+    let completedTodoContent;
+    if (completedTodosStatus === "loading") {
+        completedTodoContent = <p>loading...</p>
+    } else if (completedTodosStatus === "succeeded") {
+        completedTodoContent = completedTodos.map((completedTodo) => <CompletedTasksContainer completedTodo={completedTodo}/>)
+    } else if (completedTodosStatus === "failed") {
+        completedTodoContent = <div><p>Sorry... There was an error with loading your todos.</p><br/> <p>{completedTodosError}</p></div>
+    }
 
 
     
@@ -28,12 +82,11 @@ export default function ListTodos() {
                 Todos 
             </h1>
 
-            <NewTodoComponent></NewTodoComponent>
+            
+            <NewTodoComponent />
 
             <section className="mx-auto  w-4/5">
-                {todos.map((todo) => {
-                    return <TodoContainer todo={todo}/>
-                })}
+                {todoContent}
                 
             </section>
 
@@ -42,10 +95,8 @@ export default function ListTodos() {
             </h2>
 
             <section className="mx-auto  w-4/5">
-                {completedTodos.map((todo) => {
-                    return <CompletedTasksContainer completedTodo={todo}/>
-                })}
-                
+                {completedTodoContent}
+
             </section>
             
         </main>

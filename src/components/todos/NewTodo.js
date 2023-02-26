@@ -9,28 +9,50 @@ import { useState } from "react"
 
 
 // import fontawesome
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-// import { faCheck } from "@fortawesome/free-solid-svg-icons"
-import "@fortawesome/fontawesome-free/js/solid"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import "@fortawesome/fontawesome-free/js/solid";
+import { useNavigate } from "react-router-dom";
 
-
+import { updateTodos, selectAllTodos } from "../../reduxFiles/todosSlice";
 
 
 
 export default function NewTodoComponent() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     
     // create new state variable
     const [newTodoText, setNewTodoText] = useState("") 
+    // const [addRequestStatus, setAddRequestStatus] = useState("idle");
     
-    const dispatch = useDispatch()
 
     // handle new todo text change
     const handleNewTodoChange = (event) => {
         setNewTodoText(event.target.value)
     }
 
-    const handleCreateNewTask = (event) => {
-        dispatch(addTodo(newTodoText))
+    let allTodos = useSelector(selectAllTodos)
+
+
+    const handleCreateNewTask = async (event) => {
+
+
+        
+        
+        try {
+            dispatch(addTodo(newTodoText));
+            // console.log(allTodos)
+            // setAddRequestStatus("pending");
+            dispatch(updateTodos(allTodos.concat(newTodoText))).unwrap();
+            navigate("/todos");
+        } catch (error) {
+            console.log(error.message)
+        } finally {
+            // setAddRequestStatus("idle")
+        }
+
+        // dispatch(addTodo(newTodoText))
         
         // delete the searcch bar and change the focus
         setNewTodoText("")
