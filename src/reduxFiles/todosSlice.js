@@ -87,7 +87,7 @@ export const todosSlice = createSlice({
 
                 // replacing the current state value with the  fetch todos from server
                 // state.value = action.payload
-                state.value = state.todos.concat(action.payload)
+                state.value = action.payload
             })
             .addCase(fetchTodos.rejected, (state, action) => {
                 state.status = "failed"

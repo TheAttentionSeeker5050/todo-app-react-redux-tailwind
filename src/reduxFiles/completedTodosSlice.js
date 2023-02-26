@@ -71,11 +71,9 @@ export const completedTodoSlice = createSlice({
             .addCase(fetchCompletedTodos.fulfilled, (state, action) => {
                 state.status = "succeeded";
                 // adding the todos from the server to loaded todos var
-                const loadedCompletedTodos = action.payload
-                console.log(loadedCompletedTodos)
 
                 // replacing the current state value with the  fetch todos from server
-                state.value = loadedCompletedTodos
+                state.value = action.payload
             })
             .addCase(fetchCompletedTodos.rejected, (state, action) => {
                 state.status = "failed"
@@ -91,9 +89,9 @@ export const completedTodoSlice = createSlice({
 
 
 // export selectors
-export const selectAllCompletedTodos = (state) => state.todos.value;
-export const getCompletedTodosStatus = (state) => state.todos.status;
-export const getCompletedTodosError = (state) => state.todos.error;
+export const selectAllCompletedTodos = (state) => state.completedTodos.value;
+export const getCompletedTodosStatus = (state) => state.completedTodos.status;
+export const getCompletedTodosError = (state) => state.completedTodos.error;
 
 
 // export reducer actions

@@ -38,18 +38,12 @@ export default function ListTodos() {
 
     useEffect(() => {
         if (todosStatus === "idle") {
-            // console.log("status:",todosStatus)
-
-            console.log("idle")
             dispatch(fetchTodos())
         } 
     }, [todosStatus, dispatch])
 
     useEffect(() => {
         if (completedTodosStatus === "idle") {
-            // console.log("status:",todosStatus)
-
-            console.log("idle")
             dispatch(fetchCompletedTodos())
         } 
     }, [completedTodosStatus, dispatch])
@@ -73,6 +67,7 @@ export default function ListTodos() {
     if (todosStatus=== "loading") {
         todoContent = <p>loading...</p>
     } else if (todosStatus === "succeeded") {
+        console.log("todos:",todos)
         todoContent = todos.map((todo) => <TodoContainer todo={todo}/>)
     } else if (todosStatus === "failed") {
         todoContent = <div><p>Sorry... There was an error with loading your todos.</p><br/> <p>{todosError}</p></div>
@@ -83,7 +78,8 @@ export default function ListTodos() {
     if (completedTodosStatus === "loading") {
         completedTodoContent = <p>loading...</p>
     } else if (completedTodosStatus === "succeeded") {
-        completedTodoContent = completedTodos.map((todo) => <TodoContainer todo={todo}/>)
+        console.log("completed todos:", completedTodos)
+        completedTodoContent = completedTodos.map((completedTodo) => <CompletedTasksContainer completedTodo={completedTodo}/>)
     } else if (completedTodosStatus === "failed") {
         completedTodoContent = <div><p>Sorry... There was an error with loading your todos.</p><br/> <p>{completedTodosError}</p></div>
     }
