@@ -60,13 +60,13 @@ export default function ListTodos() {
     // const todos = useSelector((state) => state.todos.value)
     // const completedTodos = useSelector((state) => state.completedTodos.value)
 
-    console.log("todos status:", todosStatus)
-    console.log("todos error:", todosError)
-    console.log("todos :", todos)
+    // console.log("todos status:", todosStatus)
+    // console.log("todos error:", todosError)
+    // console.log("todos :", todos)
 
-    console.log("completed todos status:", completedTodosStatus)
-    console.log("completed todos error:", completedTodosError)
-    console.log("completed todos:", completedTodos)
+    // console.log("completed todos status:", completedTodosStatus)
+    // console.log("completed todos error:", completedTodosError)
+    // console.log("completed todos:", completedTodos)
 
     // populate the todo content
     let todoContent;

@@ -1,8 +1,9 @@
 import { loginAPIRequest } from "../../api/login.api";
 import { useState } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+    const navigate = useNavigate();
 
     // initiate usestate
     const [ email, setEmail ] = useState("");
@@ -11,24 +12,23 @@ export default function LoginPage() {
     // handlesubmit
     const handleSubmit = async (e) => {
 
-        const response = await loginAPIRequest(email, password);
-
-        // in case of error
-        
-
-        await response
+        await loginAPIRequest(email, password)
             .then(data => {
+                // console.log(data)
                 window.localStorage.setItem("webToken", data.token);
                 window.localStorage.setItem("isLoggedIn", true);
-                console.log("request-success");
+                // console.log("request-success");
+                navigate("/todos")
             })
             .catch(error => {
+                // console.log(error.message)
                 window.localStorage.removeItem("webToken");
                 window.localStorage.setItem("isLoggedIn", false);
-                console.log("request-fail");
+                // console.log("request-fail");
                 
             })
 
+        
         
             
     }
