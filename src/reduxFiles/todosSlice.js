@@ -14,13 +14,13 @@ const initialState = {
 export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
     
     try {
-        const response = await axios.get(API_BASE_URL+"/todos", {}, {
+        const response = await axios.get(API_BASE_URL+"/todos",  {
             headers: {
                 Authorization: window.localStorage.getItem("webToken")
             }
         });
 
-        // console.log(response.data.todos)
+        console.log(response)
         
         return response.data.todos
     } catch (err) {
@@ -86,8 +86,8 @@ export const todosSlice = createSlice({
                 
 
                 // replacing the current state value with the  fetch todos from server
-                state.value = action.payload
-                // state.value = state.todos.concat(action.payload)
+                // state.value = action.payload
+                state.value = state.todos.concat(action.payload)
             })
             .addCase(fetchTodos.rejected, (state, action) => {
                 state.status = "failed"

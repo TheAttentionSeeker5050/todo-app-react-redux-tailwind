@@ -24,7 +24,7 @@ export default function NewTodoComponent() {
     
     // create new state variable
     const [newTodoText, setNewTodoText] = useState("") 
-    const [addRequestStatus, setAddRequestStatus] = useState("idle");
+    // const [addRequestStatus, setAddRequestStatus] = useState("idle");
     
 
     // handle new todo text change
@@ -43,12 +43,13 @@ export default function NewTodoComponent() {
         try {
             dispatch(addTodo(newTodoText));
             // console.log(allTodos)
-            setAddRequestStatus("pending");
+            // setAddRequestStatus("pending");
             dispatch(updateTodos(allTodos.concat(newTodoText))).unwrap();
+            navigate("/todos");
         } catch (error) {
             console.log(error.message)
         } finally {
-            navigate("/todos");
+            // setAddRequestStatus("idle")
         }
 
         // dispatch(addTodo(newTodoText))
