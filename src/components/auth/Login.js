@@ -10,22 +10,21 @@ export default function LoginPage() {
     const [ password, setPassword ] = useState("");
 
     // handlesubmit
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
 
-        await loginAPIRequest(email, password)
+        loginAPIRequest(email, password)
             .then(data => {
                 // console.log(data)
                 window.localStorage.setItem("webToken", data.token);
                 window.localStorage.setItem("isLoggedIn", true);
-                // console.log("request-success");
+                console.log("request-success");
                 navigate("/todos")
             })
             .catch(error => {
                 // console.log(error.message)
                 window.localStorage.removeItem("webToken");
                 window.localStorage.setItem("isLoggedIn", false);
-                // console.log("request-fail");
-                
+                console.log("request-fail", error);
             })
 
         
@@ -41,7 +40,9 @@ export default function LoginPage() {
         } else if (e.target.name === "password") {
             setPassword(e.target.value);
         }
+        // console.log(email, password)
     }
+
     // console.log(window.localStorage.getItem("isLoggedIn"))
     // check if user is logged in to redirect to todos
     if (window.localStorage.getItem("isLoggedIn")=='true') {
@@ -55,7 +56,6 @@ export default function LoginPage() {
                 <h1 className="text-2xl">
                     Login
                 </h1>
-
                 <section className="">
                     <form className="flex flex-col gap-4 justify-between" onSubmit={(e) => handleSubmit(e)}>
 
@@ -71,8 +71,7 @@ export default function LoginPage() {
 
                         <div >
                             <button type="submit"
-                                className="bg-sky-700 w-32 p-3 text-white font-semibold rounded-xl my-12"
-                                >
+                                className="bg-sky-700 w-32 p-3 text-white font-semibold rounded-xl my-12">
                                 Submit
                             </button>
                         </div>

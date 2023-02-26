@@ -9,6 +9,7 @@ import HomePage from "../components/Home";
 import LoginPage from "../components/auth/Login";
 import RegisterPage from "../components/auth/Register";
 import ListTodos from "../components/todos/ListTodos";
+import LogoutRedirect from "../components/auth/Logout";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         {
           path: "/todos",
           element:<ListTodos/>
+        },
+        {
+          path: "/logout",
+          element:<LogoutRedirect/>
         },
       ]
     },
