@@ -51,23 +51,13 @@ export default function ListTodos() {
 
     
 
-    // const todos = useSelector((state) => state.todos.value)
-    // const completedTodos = useSelector((state) => state.completedTodos.value)
 
-    // console.log("todos status:", todosStatus)
-    // console.log("todos error:", todosError)
-    // console.log("todos :", todos)
-
-    // console.log("completed todos status:", completedTodosStatus)
-    // console.log("completed todos error:", completedTodosError)
-    // console.log("completed todos:", completedTodos)
 
     // populate the todo content
     let todoContent;
     if (todosStatus=== "loading") {
         todoContent = <p>loading...</p>
     } else if (todosStatus === "succeeded") {
-        console.log("todos:",todos)
         todoContent = todos.map((todo) => <TodoContainer todo={todo}/>)
     } else if (todosStatus === "failed") {
         todoContent = <div><p>Sorry... There was an error with loading your todos.</p><br/> <p>{todosError}</p></div>
@@ -78,7 +68,6 @@ export default function ListTodos() {
     if (completedTodosStatus === "loading") {
         completedTodoContent = <p>loading...</p>
     } else if (completedTodosStatus === "succeeded") {
-        console.log("completed todos:", completedTodos)
         completedTodoContent = completedTodos.map((completedTodo) => <CompletedTasksContainer completedTodo={completedTodo}/>)
     } else if (completedTodosStatus === "failed") {
         completedTodoContent = <div><p>Sorry... There was an error with loading your todos.</p><br/> <p>{completedTodosError}</p></div>

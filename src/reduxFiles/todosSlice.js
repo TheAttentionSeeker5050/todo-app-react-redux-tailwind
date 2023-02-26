@@ -22,7 +22,7 @@ export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
 
         console.log(response)
         
-        return response.data.todos
+        return [...response.data.todos]
     } catch (err) {
         console.log("error")
         return err.message;

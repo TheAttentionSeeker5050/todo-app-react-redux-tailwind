@@ -17,7 +17,7 @@ export const fetchCompletedTodos = createAsyncThunk("completedTodos/fetchComplet
                 Authorization: window.localStorage.getItem("webToken")
             }
         });
-        return response.data.completedTodos;
+        return [...response.data.completedTodos];
     } catch (err) {
         return err.message;
     }
